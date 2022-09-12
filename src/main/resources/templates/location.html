@@ -17,7 +17,7 @@
 		/* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
 		#map {
-			height: 90%;
+			height: 100%;
 		}
 
 		/* Optional: Makes the sample page fill the window. */
@@ -41,7 +41,7 @@
 						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span> <span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#" th:href="@{/}">Welcome to local news!</a>
+					<a class="navbar-brand" href="#" th:href="@{/}">Home</a>
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
@@ -62,10 +62,20 @@
 				center: {lat: 44.977489, lng: -93.264374},
 				zoom: 8
 			});
+			const marker = new google.maps.Marker({
+				postiton:{lat: 44.977489, lng: -93.264374},
+				map: map
+			});
 		}
+window.initMap = initMap;
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB930sCGi6g-owo6g7ZUnGGXfWoTSdOl0Q&callback=initMap"
 		async defer></script>
+	<div>
+	
+	<p>Bottom</p>
+
+	</div>
 
 </body>
 

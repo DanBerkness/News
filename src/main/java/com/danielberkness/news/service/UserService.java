@@ -8,6 +8,6 @@ import com.danielberkness.news.web.dto.UserRegistrationDto;
 public interface UserService extends UserDetailsService{
 
 	User save(UserRegistrationDto userRegistrationDto);
-	
-	
+
 }
+	

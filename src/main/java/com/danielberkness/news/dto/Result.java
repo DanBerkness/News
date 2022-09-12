@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
-
 @Data
 public class Result {
 	@JsonProperty("position")
@@ -17,21 +16,18 @@ public class Result {
 	public String source;
 	@JsonProperty("date")
 	public String date;
+
 	@Override
 	public String toString() {
 		return "Result [position=" + position + ", link=" + link + ", title=" + title + ", source=" + source + ", date="
 				+ date + ", snippet=" + snippet + ", thumbNail=" + thumbNail + "]";
 	}
+
 	@JsonProperty("snippet")
 	public String snippet;
 	@JsonProperty("thumbnail")
 	public String thumbNail;
-	
-	
-	
-	
-	
-	
+
 //	"position": 1,
 //    "link": "https://www.washingtonpost.com/opinions/2022/08/21/maggie-hassan-bipartisan-midterm-message/",
 //    "title": "Opinion | Purple politics could keep the Senate blue",

@@ -20,9 +20,9 @@ public class SerpService {
 
 	public ResponseEntity<NewsResponse> getNews() {
 		
-		
-		String searchQuery = "money";
 		String location = "Minneapolis,Minnesota";
+//		use location in Q search.
+		String searchQuery = "cat";
 		
 		RestTemplate rt = new RestTemplate();
 		URI uri = UriComponentsBuilder.fromHttpUrl("https://serpapi.com/search")
@@ -38,8 +38,8 @@ public class SerpService {
 
 		
 		
-		List<Result> results = news.getBody().getNewsResults();
-		results.forEach(r -> System.out.println(r.toString()));
+//		List<Result> results = news.getBody().getNewsResults();
+//		results.forEach(r -> System.out.println(r.toString()));
 		
 		return news;
 	}
