@@ -52,4 +52,10 @@ public class UserServiceImpl implements UserService{
 		return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
 	}
 
+	@Override
+	public User getUser(User user) {
+		userRepository.getById(null);
+		return null;
+	}
+
 }

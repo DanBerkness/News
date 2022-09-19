@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th=http://www.thymeleaf.org>
-
 <head>
-	<title>Test</title>
+<title>Articles</title>
 </head>
-
 <body>
-<div th:text="$dan.articles">
+<p>Hi There</p>
+<ul>
+<li th:each="article: ${allArticles}" th:text="${article.title}" th:href="${article.link}"></li>
+</ul>
 
-</div>
+
 
 </body>
 

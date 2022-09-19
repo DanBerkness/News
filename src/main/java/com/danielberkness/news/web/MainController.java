@@ -23,8 +23,6 @@ public class MainController {
 	SerpService serpService;
 	@Autowired
 	UserService userService;
-	
-	
 
 	@GetMapping("/login")
 	public String login() {
@@ -41,29 +39,20 @@ public class MainController {
 		return "location";
 	}
 
-	@GetMapping("/map")
-	public String map() {
-		return "map";
-		
-	}
 	
 	@GetMapping("/articles")
 	public String getArticles(ModelMap model) {
 		
 		
-		List<Result> allArticles = serpService.getNews().getBody().getNewsResults().stream()
+		String location = "minneapolis,minnesota";
+		
+		List<Result> allArticles = serpService.getNews(location).getBody().getNewsResults().stream()
 				.collect(Collectors.toList());
-		
-		System.out.println(allArticles.toString());
-		
 		
 		model.addAttribute("allArticles",allArticles);
 		
 		return "articles";
 	}
-	@GetMapping("/test") 
-	public String test(ModelMap model) {
-		
-		return "test";
-	}
+	
+	
 }
