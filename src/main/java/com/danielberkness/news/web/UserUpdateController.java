@@ -1,16 +1,17 @@
 package com.danielberkness.news.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
-import org.springframework.security.config.annotation.authentication.configurers.provisioning.UserDetailsManagerConfigurer.UserDetailsBuilder;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
+import com.danielberkness.news.model.User;
 import com.danielberkness.news.service.UserService;
 import com.danielberkness.news.web.dto.UserRegistrationDto;
 @Controller
@@ -36,29 +37,19 @@ public class UserUpdateController {
 		return "update";
 	}
 	
-	@PostMapping
-	public String updateUserAccount(@ModelAttribute("user") UserRegistrationDto userRegistrationDto) {
-		String userName = ((UserDetails) SecurityContextHolder.getContext()
-																  .getAuthentication()
-																  .getPrincipal())
-																  .getUsername();
-		UserDetailsBuilder udb = new UserDetailsBuilder();
-		UserDetailsBuilder u = User.withUsername(userName)
-                .password("12345")
-                .authorities("read", "write")
-                .accountExpired(false)
-                .disabled(true)
-                .build();							  
-															
-
+	@GetMapping("/showFormForUpdate/{id}")
+	public String showFormForUpdate(@PathVariable(value = "id") Long id, Model model) {
+		User user = userService.getUserById(id);
+		model.addAttribute("user", user);
+		return "update_employee";
 		
-//		User currentUser = (User) userService.loadUserByUsername(userName);
-//		currentUser.setEmail(userRegistrationDto.getEmail());
-//		currentUser.setFirstName(userRegistrationDto.getFirstName());
-//		currentUser.setLastName(userRegistrationDto.getLastName());
-//		currentUser.setPassword(userRegistrationDto.getPassword());
+	}
+	
+	@GetMapping("/deleteEmployee/{id}")
+	public String deleteEmployee(@PathVariable(value = "id") Long id) {
+		this.userService.deleteUserById(id);
+		return "redirect:/";
 		
-		return "redirect:/update?success";
 	}
 
 }
