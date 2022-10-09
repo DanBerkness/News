@@ -53,6 +53,10 @@ public class MainController {
 		
 		return "articles";
 	}
+	@GetMapping("/test")
+	public String test() {
+		return "test";
+	}
 	
 	
 }
