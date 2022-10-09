@@ -1,4 +1,3 @@
-
 const findMyLocation = () => {
 
 
@@ -14,7 +13,7 @@ const findMyLocation = () => {
 
 		const res = await fetch(geoApiUrl)
 		const data = await res.json()
-		status.textContent = data.locality + ' ' + data.principalSubdivision
+		status.textContent = data.city + ' ' + data.principalSubdivision
 
 		initMap(latitude, longitude)
 	}

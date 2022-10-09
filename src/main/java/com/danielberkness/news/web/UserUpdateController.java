@@ -1,47 +1,59 @@
 package com.danielberkness.news.web;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.danielberkness.news.model.User;
 import com.danielberkness.news.service.UserService;
 import com.danielberkness.news.web.dto.UserRegistrationDto;
 @Controller
-@RequestMapping("/update")
+
 
 public class UserUpdateController {
 	
 	@Autowired
 	UserService userService;
+
+	
 	
 	public UserUpdateController(UserService userService) {
 		super();
 		this.userService = userService;
 	}
 	
-	@ModelAttribute("user")
-	public UserRegistrationDto userRegistrationDto() {
-		return new UserRegistrationDto();
-	}
-	
-	@GetMapping
-	public String showUpdateForm() {
-		return "update";
-	}
+	/*
+	 * @ModelAttribute("user") public UserRegistrationDto userRegistrationDto() {
+	 * return new UserRegistrationDto(); }
+	 */
+
 	
 	@GetMapping("/update")
-	public String showFormForUpdate(@PathVariable(value = "id") Long id, Model model) {
-		User user = userService.getUserById(id);
-		System.out.println(user.getFirstName());
-		model.addAttribute("user", user);
-		return "/";
+	public String showFormForUpdate(Principal loggedInUser, ModelMap model) {
+		System.out.println(loggedInUser.getName());
+		User user =  userService.findUserByUsername(loggedInUser.getName());
+		model.put("user", user);
+		return "update";
 		
+	}
+	@ResponseBody
+	@PostMapping("/update")
+	public String updateUser(@ModelAttribute User user) {
+		System.out.println(user.getId() + user.getFirstName());
+		 userService.updateUserInfo(user);
+		System.out.println(user.getFirstName());
+		
+		return "redirect:/update";
 	}
 	
 	@GetMapping("/deleteEmployee/{id}")
@@ -50,5 +62,6 @@ public class UserUpdateController {
 		return "redirect:/";
 		
 	}
+	
 
 }
