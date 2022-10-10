@@ -17,51 +17,46 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.danielberkness.news.model.User;
 import com.danielberkness.news.service.UserService;
 import com.danielberkness.news.web.dto.UserRegistrationDto;
+
 @Controller
 
-
 public class UserUpdateController {
-	
+
 	@Autowired
 	UserService userService;
 
-	
-	
 	public UserUpdateController(UserService userService) {
 		super();
 		this.userService = userService;
 	}
-	
+
 	/*
 	 * @ModelAttribute("user") public UserRegistrationDto userRegistrationDto() {
 	 * return new UserRegistrationDto(); }
-	 */
+	 */ 
 
-	
 	@GetMapping("/update")
 	public String showFormForUpdate(Principal loggedInUser, ModelMap model) {
 		System.out.println(loggedInUser.getName());
-		User user =  userService.findUserByUsername(loggedInUser.getName());
+		User user = userService.findUserByUsername(loggedInUser.getName());
 		model.put("user", user);
 		return "update";
-		
+
 	}
-	@ResponseBody
+
 	@PostMapping("/update")
 	public String updateUser(@ModelAttribute User user) {
-		System.out.println(user.getId() + user.getFirstName());
-		 userService.updateUserInfo(user);
-		System.out.println(user.getFirstName());
 		
+		userService.save(user);
+
 		return "redirect:/update";
 	}
-	
+
 	@GetMapping("/deleteEmployee/{id}")
 	public String deleteEmployee(@PathVariable(value = "id") Long id) {
 		this.userService.deleteUserById(id);
 		return "redirect:/";
-		
+
 	}
-	
 
 }

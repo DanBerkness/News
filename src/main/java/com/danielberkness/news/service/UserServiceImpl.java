@@ -93,6 +93,14 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
+	@Override
+	public User save(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userRepository.save(user);
+		return null;
+	}
+	
+
 	
 
 }

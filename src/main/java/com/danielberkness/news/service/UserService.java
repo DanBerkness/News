@@ -20,6 +20,8 @@ public interface UserService extends UserDetailsService{
 	void deleteUserById(Long id);
 
 	User save(UserRegistrationDto userRegistrationDto);
+	User save(User user);
+	
 	
 	User findUserByUsername(String userName);
 
